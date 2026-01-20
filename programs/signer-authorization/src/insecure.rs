@@ -1,13 +1,12 @@
 use anchor_lang::prelude::*;
-use anchor_lang::system_program::{transfer, Transfer};
 
 use crate::state::Vault;
 
 // ---------------------------------------------------------------------------
 // VULNERABILITY: Missing Signer Authorization
 // ---------------------------------------------------------------------------
-// The authority account is not validated as a Signer. Anyone can pass any
-// pubkey and drain funds without signing the transaction.
+// The authority account uses UncheckedAccount (not Signer). Anyone can pass
+// the vault.authority pubkey without signing, allowing unauthorized withdrawals.
 // ---------------------------------------------------------------------------
 
 #[derive(Accounts)]
@@ -21,30 +20,22 @@ pub struct InsecureWithdraw<'info> {
 
     /// CHECK: VULNERABLE - Not validated as signer.
     /// Attacker can pass vault.authority without signing.
-    pub authority: AccountInfo<'info>,
+    pub authority: UncheckedAccount<'info>,
 
     #[account(mut)]
-    pub destination: SystemAccount<'info>,
-
-    pub system_program: Program<'info, System>,
+    /// CHECK: Destination for lamports
+    pub destination: UncheckedAccount<'info>,
 }
 
 impl<'info> InsecureWithdraw<'info> {
+    /// Withdraw lamports from vault.
+    /// DANGER: No signature verification - anyone can drain!
     pub fn withdraw(&mut self, amount: u64) -> Result<()> {
-        // No signature verification - anyone can drain!
-        let seeds = &[b"vault", self.authority.key.as_ref(), &[self.vault.bump]];
-        let signer_seeds = &[&seeds[..]];
+        // Modern pattern: use Lamports trait for direct transfers
+        // This is vulnerable because we don't verify authority signed
+        self.vault.sub_lamports(amount)?;
+        self.destination.add_lamports(amount)?;
 
-        transfer(
-            CpiContext::new_with_signer(
-                self.system_program.to_account_info(),
-                Transfer {
-                    from: self.vault.to_account_info(),
-                    to: self.destination.to_account_info(),
-                },
-                signer_seeds,
-            ),
-            amount,
-        )
+        Ok(())
     }
 }

@@ -2,7 +2,12 @@
 members = [
     "programs/*",
 ]
+exclude = ["tests", "programs/amm"]
 resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
 
 [workspace.dependencies]
 anchor-lang = "0.32.1"

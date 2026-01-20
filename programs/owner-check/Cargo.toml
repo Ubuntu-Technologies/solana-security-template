@@ -1,0 +1,17 @@
+[package]
+name = "owner-check"
+description = "Demonstrates missing owner check vulnerability using Pinocchio"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "owner_check"
+
+[features]
+no-entrypoint = []
+default = []
+idl-build = []  # Stub for anchor CLI
+
+[dependencies]
+pinocchio = "0.10"

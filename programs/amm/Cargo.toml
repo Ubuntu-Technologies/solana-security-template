@@ -1,0 +1,3 @@
+[workspace]
+members = ["buggy-amm", "secure-amm"]
+resolver = "2"

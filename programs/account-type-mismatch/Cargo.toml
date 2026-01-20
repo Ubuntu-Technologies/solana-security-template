@@ -1,0 +1,17 @@
+[package]
+name = "account-type-mismatch"
+description = "Demonstrates missing discriminator vulnerability using Pinocchio"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "account_type_mismatch"
+
+[features]
+no-entrypoint = []
+default = []
+idl-build = []  # Stub for anchor CLI
+
+[dependencies]
+pinocchio = "0.10"

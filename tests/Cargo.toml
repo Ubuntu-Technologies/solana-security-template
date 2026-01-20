@@ -1,17 +1,58 @@
 [package]
-name = "security-template-tests"
+name = "security-tests"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-anchor-lang = "0.32.1"
-litesvm = "0.3"
-solana-sdk = "2.0"
-signer-authorization = { path = "../programs/signer-authorization", features = ["no-entrypoint"] }
-
 [lib]
-path = "src/lib.rs"
+crate-type = ["lib"]
 
 [[test]]
 name = "signer_authorization"
-path = "src/signer_authorization.rs"
+path = "signer_authorization.rs"
+
+[[test]]
+name = "arithmetic_overflow"
+path = "arithmetic_overflow.rs"
+
+[[test]]
+name = "owner_check"
+path = "owner_check.rs"
+
+[[test]]
+name = "pda_seeds"
+path = "pda_seeds.rs"
+
+[[test]]
+name = "account_close"
+path = "account_close.rs"
+
+[[test]]
+name = "account_type_mismatch"
+path = "account_type_mismatch.rs"
+
+[[test]]
+name = "p_escrow"
+path = "p_escrow.rs"
+
+[[test]]
+name = "amm"
+path = "amm.rs"
+
+[dependencies]
+# LiteSVM 0.6.1 with stable Solana 2.2.x crates
+litesvm = "=0.6.1"
+borsh = "1.5"
+
+# Solana crates matching litesvm 0.6.1
+solana-account = "2.2.1"
+solana-instruction = "2.2.1"
+solana-keypair = "2.2.1"
+solana-message = "2.2.1"
+solana-native-token = "2.2.1"
+solana-pubkey = "2.2.1"
+solana-signer = "2.2.1"
+solana-transaction = "2.2.1"
+solana-sdk-ids = "2.2.1"
+solana-system-interface = "1.0.0"
+serde_json = "1.0"
+spl-token-2022 = { version = "8.0.1", features = ["no-entrypoint"] }

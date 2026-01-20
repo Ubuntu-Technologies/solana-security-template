@@ -1,12 +1,9 @@
 use anchor_lang::prelude::*;
-use anchor_lang::system_program::{transfer, Transfer};
 
 use crate::state::Vault;
 
 // ---------------------------------------------------------------------------
 // Initialize Vault
-// ---------------------------------------------------------------------------
-// Creates a vault PDA owned by the authority.
 // ---------------------------------------------------------------------------
 
 #[derive(Accounts)]
@@ -33,16 +30,11 @@ impl<'info> Initialize<'info> {
         Ok(())
     }
 
+    /// Deposit lamports into the vault.
     pub fn deposit(&mut self, amount: u64) -> Result<()> {
-        transfer(
-            CpiContext::new(
-                self.system_program.to_account_info(),
-                Transfer {
-                    from: self.authority.to_account_info(),
-                    to: self.vault.to_account_info(),
-                },
-            ),
-            amount,
-        )
+        // Modern pattern: use Lamports trait for transfers
+        self.authority.sub_lamports(amount)?;
+        self.vault.add_lamports(amount)?;
+        Ok(())
     }
 }

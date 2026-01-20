@@ -5,7 +5,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-signer_authorization = "EXnhqXwkDbL63d2UPbERQ4BQSubRyLHwCJLiKhhW7zba"
+signer_authorization = "2LfaJU7mgZmw77zhpb7vjzX3ZRHgf9hA7gwcHrWxSNjP"
+arithmetic_overflow = "4uaVhsKF2Tgi8py5qDTs75bAk4rDa3D8q7bEKmTZC6hT"
+pda_seeds = "D6xpqhSLWmU6dsRU88Cs9JZS53m2kubCY97G91B5YPyZ"
+account_close = "2rt5wuNBCL1fhUhHkEvPNdwhJiAu5gKcXFGGN79AxXYp"
+owner_check = "4XE7GeCD4yTniv41eiuRWA2PJmtp6FoDWnxgdZQCd4ry"
+account_type_mismatch = "CdF1LRWyyj2wunVeu59911RcLpTh5X6wBYLKeneRiD9X"
+p_escrow = "nstU4cu6Uyd7M9Psteeic6rhqApf4Pg9QFYEQbz3vKU"
 
 [registry]
 url = "https://api.apr.dev"
@@ -15,4 +21,5 @@ cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "cargo test"
+test = "cd tests && cargo test"
+build-all = "anchor build && cd programs/owner-check && cargo build-sbf && cd ../account-type-mismatch && cargo build-sbf && cd ../p-escrow && cargo build-sbf && cd ../amm/buggy-amm && cargo build-sbf && cd ../secure-amm && cargo build-sbf"

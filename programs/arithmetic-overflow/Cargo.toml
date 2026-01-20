@@ -1,12 +1,12 @@
 [package]
-name = "signer-authorization"
-description = "Demonstrates missing signer authorization vulnerability"
+name = "arithmetic-overflow"
+description = "Demonstrates integer overflow/underflow vulnerability"
 version.workspace = true
 edition.workspace = true
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "signer_authorization"
+name = "arithmetic_overflow"
 
 [features]
 no-entrypoint = []
