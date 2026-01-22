@@ -7,11 +7,16 @@ skip-lint = false
 [programs.localnet]
 signer_authorization = "2LfaJU7mgZmw77zhpb7vjzX3ZRHgf9hA7gwcHrWxSNjP"
 arithmetic_overflow = "4uaVhsKF2Tgi8py5qDTs75bAk4rDa3D8q7bEKmTZC6hT"
-pda_seeds = "D6xpqhSLWmU6dsRU88Cs9JZS53m2kubCY97G91B5YPyZ"
+pda_security = "D6xpqhSLWmU6dsRU88Cs9JZS53m2kubCY97G91B5YPyZ"
 account_close = "2rt5wuNBCL1fhUhHkEvPNdwhJiAu5gKcXFGGN79AxXYp"
 owner_check = "4XE7GeCD4yTniv41eiuRWA2PJmtp6FoDWnxgdZQCd4ry"
 account_type_mismatch = "CdF1LRWyyj2wunVeu59911RcLpTh5X6wBYLKeneRiD9X"
 p_escrow = "nstU4cu6Uyd7M9Psteeic6rhqApf4Pg9QFYEQbz3vKU"
+duplicate_accounts = "BgxHghQVFFavSL6VBpJ6eoKec1yBoAYVS24EfGXHXxTz"
+insecure_init = "4jYJ4EhViLDVKAswFSX84LnFdb8FetpAPWsqxyXaa5cK"
+account_reloading = "GBMScyniY2yFUdFQRyBQ9QyHD7qUmJQZmvwJvhbSavG9"
+remaining_accounts = "Eypux1FctAjxFzjEXyP6RGab8brjy2LtBU9dtQThFacP"
+authority_transfer = "3APkTen4wwfvKAyjrwxCaCWVKEkwagJd5cXwJeFkefVS"
 
 [registry]
 url = "https://api.apr.dev"

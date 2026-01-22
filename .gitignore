@@ -1,8 +1,40 @@
-.anchor
-.DS_Store
-target
+# Build artifacts
+target/
 **/*.rs.bk
-node_modules
-test-ledger
-.yarn
+
+# Anchor
+.anchor/
+test-ledger/
+
+# Node
+node_modules/
+yarn.lock
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.log
+
+# Non-submission files (keep separate for article/planning)
+SECURITY_DEEPDIVE.md
+SECURITY_CHECKLIST.md
+TODO.md
 ARTICLE_PROMPTS.md
+PROGRESS.md

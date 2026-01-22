@@ -10,9 +10,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "account-reloading"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "account-type-mismatch"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
  "pinocchio 0.10.1",
 ]
 
@@ -527,6 +535,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "authority-transfer"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1009,6 +1024,13 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.114",
+]
+
+[[package]]
+name = "duplicate-accounts"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
 ]
 
 [[package]]
@@ -1586,6 +1608,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "insecure-init"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "ipnet"
 version = "2.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2086,6 +2115,7 @@ dependencies = [
 name = "owner-check"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
  "pinocchio 0.10.1",
 ]
 
@@ -2149,7 +2179,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pda-seeds"
+name = "pda-security"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
@@ -2542,6 +2572,13 @@ name = "regex-syntax"
 version = "0.8.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a2d987857b319362043e95f5353c0535c1f58eec5336fdfcf626430af7def58"
+
+[[package]]
+name = "remaining-accounts"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
 
 [[package]]
 name = "reqwest"

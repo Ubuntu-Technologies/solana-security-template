@@ -5,9 +5,12 @@
 //! VULNERABILITY: When accounts don't have a discriminator (type identifier),
 //! an attacker can pass an account of type A where type B is expected.
 //! If both have the same serialized layout, the program reads garbage data.
+//!
+//! Uses bytemuck for type-safe zero-copy deserialization.
 
 #![no_std]
 
+use bytemuck::bytes_of_mut;
 use pinocchio::{
     entrypoint,
     error::{ProgramError, ProgramResult},
@@ -15,14 +18,13 @@ use pinocchio::{
 };
 
 mod secure;
+mod state;
 mod vulnerable;
+
+use state::{Admin, User, ADMIN_DISCRIMINATOR, USER_DISCRIMINATOR};
 
 entrypoint!(process_instruction);
 nostd_panic_handler!();
-
-/// Account type discriminators
-pub const USER_DISCRIMINATOR: u8 = 1;
-pub const ADMIN_DISCRIMINATOR: u8 = 2;
 
 /// Main entry point
 pub fn process_instruction(
@@ -47,7 +49,7 @@ pub fn process_instruction(
     }
 }
 
-/// Initialize user account (discriminator = 1)
+/// Initialize user account using bytemuck for safe writes
 fn init_user(program_id: &Address, accounts: &[AccountView], data: &[u8]) -> ProgramResult {
     let account = accounts.first().ok_or(ProgramError::NotEnoughAccountKeys)?;
 
@@ -55,23 +57,40 @@ fn init_user(program_id: &Address, accounts: &[AccountView], data: &[u8]) -> Pro
         return Err(ProgramError::IllegalOwner);
     }
 
-    // User layout: [discriminator(1), pubkey(32), balance(8)]
+    if data.len() < 33 {
+        return Err(ProgramError::InvalidInstructionData);
+    }
+
+    let pubkey: [u8; 32] = data[1..33]
+        .try_into()
+        .map_err(|_| ProgramError::InvalidInstructionData)?;
+
+    // Create User struct with bytemuck
+    let mut user = User {
+        discriminator: USER_DISCRIMINATOR,
+        _padding: [0u8; 7],
+        balance: 0,
+        pubkey,
+    };
+
     unsafe {
         let acc_data = account.borrow_unchecked();
-        if acc_data.len() < 41 {
+        if acc_data.len() < User::SIZE {
             return Err(ProgramError::InvalidAccountData);
         }
-        let ptr = acc_data.as_ptr() as *mut u8;
-        *ptr = USER_DISCRIMINATOR; // Set discriminator
 
-        if data.len() >= 33 {
-            core::ptr::copy_nonoverlapping(data[1..33].as_ptr(), ptr.add(1), 32);
-        }
+        let user_bytes = bytes_of_mut(&mut user);
+        core::ptr::copy_nonoverlapping(
+            user_bytes.as_ptr(),
+            acc_data.as_ptr() as *mut u8,
+            User::SIZE,
+        );
     }
+
     Ok(())
 }
 
-/// Initialize admin account (discriminator = 2)
+/// Initialize admin account using bytemuck for safe writes
 fn init_admin(program_id: &Address, accounts: &[AccountView], data: &[u8]) -> ProgramResult {
     let account = accounts.first().ok_or(ProgramError::NotEnoughAccountKeys)?;
 
@@ -79,19 +98,35 @@ fn init_admin(program_id: &Address, accounts: &[AccountView], data: &[u8]) -> Pr
         return Err(ProgramError::IllegalOwner);
     }
 
-    // Admin layout: [discriminator(1), pubkey(32), permissions(8)]
-    // Note: Same layout as User! Only discriminator differs
+    if data.len() < 33 {
+        return Err(ProgramError::InvalidInstructionData);
+    }
+
+    let pubkey: [u8; 32] = data[1..33]
+        .try_into()
+        .map_err(|_| ProgramError::InvalidInstructionData)?;
+
+    // Create Admin struct with bytemuck
+    let mut admin = Admin {
+        discriminator: ADMIN_DISCRIMINATOR,
+        _padding: [0u8; 7],
+        permissions: 0,
+        pubkey,
+    };
+
     unsafe {
         let acc_data = account.borrow_unchecked();
-        if acc_data.len() < 41 {
+        if acc_data.len() < Admin::SIZE {
             return Err(ProgramError::InvalidAccountData);
         }
-        let ptr = acc_data.as_ptr() as *mut u8;
-        *ptr = ADMIN_DISCRIMINATOR; // Set discriminator
 
-        if data.len() >= 33 {
-            core::ptr::copy_nonoverlapping(data[1..33].as_ptr(), ptr.add(1), 32);
-        }
+        let admin_bytes = bytes_of_mut(&mut admin);
+        core::ptr::copy_nonoverlapping(
+            admin_bytes.as_ptr(),
+            acc_data.as_ptr() as *mut u8,
+            Admin::SIZE,
+        );
     }
+
     Ok(())
 }

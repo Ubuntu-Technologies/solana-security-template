@@ -1,9 +1,13 @@
 //! Owner Check - Pinocchio Program
 //!
 //! Demonstrates the "Missing Owner Check" vulnerability.
+//!
+//! Uses bytemuck for type-safe zero-copy deserialization,
+//! which is safer than raw pointer manipulation.
 
 #![no_std]
 
+use bytemuck::bytes_of_mut;
 use pinocchio::{
     entrypoint,
     error::{ProgramError, ProgramResult},
@@ -11,7 +15,10 @@ use pinocchio::{
 };
 
 mod secure;
+mod state;
 mod vulnerable;
+
+use state::Config;
 
 entrypoint!(process_instruction);
 nostd_panic_handler!();
@@ -34,12 +41,11 @@ pub fn process_instruction(
     }
 }
 
-/// Initialize a config account
+/// Initialize a config account using bytemuck for safe writes
 fn initialize_config(program_id: &Address, accounts: &[AccountView], data: &[u8]) -> ProgramResult {
     let config_account = accounts.first().ok_or(ProgramError::NotEnoughAccountKeys)?;
 
     // Must be owned by this program
-    // SAFETY: owner() returns a reference to the account's owner
     if unsafe { config_account.owner() } != program_id {
         return Err(ProgramError::IllegalOwner);
     }
@@ -48,20 +54,28 @@ fn initialize_config(program_id: &Address, accounts: &[AccountView], data: &[u8]
         return Err(ProgramError::InvalidInstructionData);
     }
 
-    let admin_pubkey = &data[1..33];
+    let admin_pubkey: [u8; 32] = data[1..33]
+        .try_into()
+        .map_err(|_| ProgramError::InvalidInstructionData)?;
 
-    // Write admin to config data
-    // SAFETY: we're the only one modifying this account
+    // Use bytemuck for safe writes
     unsafe {
         let config_data = config_account.borrow_unchecked();
-        if config_data.len() >= 32 {
-            // Get mutable slice and write
-            core::ptr::copy_nonoverlapping(
-                admin_pubkey.as_ptr(),
-                config_data.as_ptr() as *mut u8,
-                32,
-            );
+        if config_data.len() < Config::SIZE {
+            return Err(ProgramError::InvalidAccountData);
         }
+
+        // Create a Config struct and write its bytes
+        let mut config = Config {
+            admin: admin_pubkey,
+        };
+        let config_bytes = bytes_of_mut(&mut config);
+
+        core::ptr::copy_nonoverlapping(
+            config_bytes.as_ptr(),
+            config_data.as_ptr() as *mut u8,
+            Config::SIZE,
+        );
     }
 
     Ok(())

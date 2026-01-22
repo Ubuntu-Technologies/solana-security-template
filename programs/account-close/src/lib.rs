@@ -11,10 +11,12 @@
 use anchor_lang::prelude::*;
 
 pub mod error;
+pub mod initialize;
 pub mod secure;
 pub mod state;
 pub mod vulnerable;
 
+use initialize::*;
 use secure::*;
 use vulnerable::*;
 
