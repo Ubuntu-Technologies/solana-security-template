@@ -1,11 +1,11 @@
-# Type Cosplay (Missing Discriminator)
+# Discriminator Bypass (Account Type Confusion)
 
 **Vulnerability**: Passing account of type A where type B expected due to missing type identifier  
 **Framework**: Pinocchio (no_std)  
 
 ## Overview
 
-This program demonstrates the "Type Cosplay" vulnerability where accounts without discriminators can be confused for different types with similar memory layouts.
+This program demonstrates the "Discriminator Bypass" vulnerability where accounts without discriminators can be confused for different types with similar memory layouts.
 
 ## The Vulnerability
 
