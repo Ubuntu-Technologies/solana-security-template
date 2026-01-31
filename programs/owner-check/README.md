@@ -130,7 +130,7 @@ pub fn process_read_config(
 ## Running Tests
 
 ```bash
-cargo test -p owner-check-tests
+cargo test -p security-tests --test owner_check
 ```
 
 ## Mitigation Checklist

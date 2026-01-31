@@ -139,7 +139,7 @@ require!(amount_out >= min_out, PoolError::SlippageExceeded);
 ## Running Tests
 
 ```bash
-cargo test -p arithmetic-overflow-tests
+cargo test -p security-tests --test arithmetic_overflow
 ```
 
 ## Mitigation Checklist

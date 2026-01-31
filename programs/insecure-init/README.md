@@ -91,7 +91,7 @@ pub fn initialize(&mut self, admin: Pubkey) -> Result<()> {
 ## Running Tests
 
 ```bash
-cargo test -p insecure-init-tests
+cargo test -p security-tests --test insecure_init
 ```
 
 ## Mitigation Checklist

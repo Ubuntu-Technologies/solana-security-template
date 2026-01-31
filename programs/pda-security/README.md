@@ -129,7 +129,7 @@ pub user_account: Account<'info, UserAccountSecure>,
 ## Running Tests
 
 ```bash
-cargo test -p pda-seeds-tests
+cargo test -p security-tests --test pda_seeds
 ```
 
 ## Mitigation Checklist

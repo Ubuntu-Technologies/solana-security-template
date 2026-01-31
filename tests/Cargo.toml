@@ -46,6 +46,22 @@ path = "account_griefing.rs"
 name = "multisig_payer"
 path = "multisig_payer.rs"
 
+[[test]]
+name = "insecure_init"
+path = "insecure_init.rs"
+
+[[test]]
+name = "authority_transfer"
+path = "authority_transfer.rs"
+
+[[test]]
+name = "remaining_accounts"
+path = "remaining_accounts.rs"
+
+[[test]]
+name = "account_reloading"
+path = "account_reloading.rs"
+
 [dependencies]
 # LiteSVM 0.6.1 with stable Solana 2.2.x crates
 litesvm = "=0.6.1"

@@ -139,7 +139,7 @@ pub struct SecureClose<'info> {
 ## Running Tests
 
 ```bash
-cargo test -p account-close-tests
+cargo test -p security-tests --test account_close
 ```
 
 ## Mitigation Checklist

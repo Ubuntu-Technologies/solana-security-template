@@ -80,7 +80,7 @@ pub fn process_rewards(&self, remaining: &[AccountInfo]) {
 ## Running Tests
 
 ```bash
-cargo test -p remaining-accounts-tests
+cargo test -p security-tests --test remaining_accounts
 ```
 
 ## Mitigation Checklist

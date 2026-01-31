@@ -130,7 +130,7 @@ pub struct SecureWithdraw<'info> {
 ## Running Tests
 
 ```bash
-cargo test -p signer-authorization-tests
+cargo test -p security-tests --test signer_authorization
 ```
 
 ## Mitigation Checklist

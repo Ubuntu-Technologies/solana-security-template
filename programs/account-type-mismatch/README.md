@@ -132,7 +132,7 @@ pub fn process_action(program_id: &Address, accounts: &[AccountView]) -> Program
 ## Running Tests
 
 ```bash
-cargo test -p account-type-mismatch-tests
+cargo test -p security-tests --test account_type_mismatch
 ```
 
 ## Mitigation Checklist

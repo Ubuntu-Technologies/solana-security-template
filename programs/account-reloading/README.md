@@ -77,7 +77,7 @@ pub fn secure_operation(&mut self) -> Result<()> {
 ## Running Tests
 
 ```bash
-cargo test -p account-reloading-tests
+cargo test -p security-tests --test account_reloading
 ```
 
 ## Mitigation Checklist

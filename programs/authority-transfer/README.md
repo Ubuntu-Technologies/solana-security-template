@@ -79,7 +79,7 @@ pub fn accept(&mut self) -> Result<()> {
 ## Running Tests
 
 ```bash
-cargo test -p authority-transfer-tests
+cargo test -p security-tests --test authority_transfer
 ```
 
 ## Mitigation Checklist

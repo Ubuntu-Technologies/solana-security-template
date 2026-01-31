@@ -17,7 +17,7 @@ pub mod vulnerable;
 use secure::*;
 use vulnerable::*;
 
-declare_id!("4jYJ4EhViLDVKAswFSX84LnFdb8FetpAPWsqxyXaa5cK");
+declare_id!("5fCvzD3bcuA7dbp3afvnRFe68i2m4Tk6448JQLEgKgtY");
 
 #[program]
 pub mod insecure_init {

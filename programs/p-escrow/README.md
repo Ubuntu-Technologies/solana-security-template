@@ -76,7 +76,7 @@ pub fn process_secure_refund(accounts: &[AccountInfo], data: &[u8]) -> ProgramRe
 ## Running Tests
 
 ```bash
-cargo test -p p-escrow-tests
+cargo test -p security-tests --test p_escrow
 ```
 
 ## Mitigation Checklist

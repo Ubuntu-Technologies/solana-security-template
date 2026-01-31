@@ -77,7 +77,7 @@ pub struct SecureTransfer<'info> {
 ## Running Tests
 
 ```bash
-cargo test -p duplicate-accounts-tests
+cargo test -p security-tests --test duplicate_accounts
 ```
 
 ## Mitigation Checklist

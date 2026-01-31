@@ -93,7 +93,7 @@ amm/
 ## Running Tests
 
 ```bash
-cargo test -p amm-tests
+cargo test -p security-tests --test amm
 ```
 
 ## Test Coverage

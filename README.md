@@ -23,8 +23,7 @@ For a comprehensive deep-dive on all vulnerabilities, see [Gemini_article.md](Ge
 | Component | Version |
 |-----------|---------|
 | Rust | 1.89.0 |
-| Solana CLI | 3.0.11; client:Agave)
- |
+| Solana CLI | 3.0.11 (client: Agave) |
 | Anchor | 0.32.1 |
 
 ### Installation
@@ -36,8 +35,8 @@ cd solana-security-template
 # Build all programs
 anchor run build-all
 
-# Run tests
-anchor run test
+# Run tests (LiteSVM-based Rust tests)
+cargo test -p security-tests
 
 # Run fuzz tests (optional)
 cd trident-tests/fuzz_targets && cargo test
