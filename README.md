@@ -3,6 +3,8 @@
 ![CI](https://github.com/Ubuntu-Technologies/solana-security-template/actions/workflows/ci.yml/badge.svg)
 
 This repository offers a collection of Solana programs that attempts to demonstrate common attack vectors as relating to smart contract (solana programs in this context) and how to mitigate those vulnerabilities.. Each program includes vulnerable and secure implementations with tests that prove exploits fail after remediation. In line with achieving my weird dream of 100% Rust only on this repository, I decided to write all tests as well as workflows in Rust. To make the best of the repo, think like an elite hacker, break things, and fix them, and build better programs. Meanwhile, a checklist for you here. Ciao!
+![Checklist](https://github.com/user-attachments/assets/ed332588-c5eb-4b9e-9362-a4eede6fd130)
+
 
 ## Overview
 
@@ -14,7 +16,7 @@ This repository provides hands-on examples of several critical vulnerabilities t
 
 The programs use both Anchor and Pinocchio frameworks to show patterns across different development approaches.
 
-For a comprehensive deep-dive on all vulnerabilities, see [Gemini_article.md](Gemini_article.md) which includes two additional vulnerability patterns from J4X_Security's research: Account Creation Griefing and Multisig as Payer.
+For a comprehensive deep-dive on all vulnerabilities, see the medium article which includes additional vulnerability patterns as well as in-depth explanation of how the exploits work and lessons that can be learnt from each of them in plain language.
 
 ## Getting Started
 
@@ -44,7 +46,7 @@ cd trident-tests/fuzz_targets && cargo test
 
 ### Learning Path
 
-1. Start with [owner-check](programs/owner-check/) — the simplest vulnerability to understand
+1. Start with [owner-check](programs/owner-check/) which is the simplest vulnerability to understand
 2. Read the vulnerable code and its comments
 3. Read the secure code to see the fix
 4. Run tests to observe the exploit fail against the secure version
@@ -213,7 +215,9 @@ Each program contains:
 
 ## Additional Resources
 
+- [Anchor Docs detailing Best Practices](https://www.anchor-lang.com/docs/security) — Deploying programs safely using the Anchor framework
 - [Security Checklist](SECURITY_CHECKLIST.md) — Pre-deployment checklist
+- [The Rust Advisory Database](https://rustsec.org) — The Rust vulnerability database
 - [Trident Fuzzing](trident-tests/README.md) — Fuzz testing for edge cases
 - [Contributing](CONTRIBUTING.md) — How to contribute
 
