@@ -2,7 +2,11 @@
 
 ![CI](https://github.com/Ubuntu-Technologies/solana-security-template/actions/workflows/ci.yml/badge.svg)
 
-This repository offers a collection of Solana programs that attempts to demonstrate common attack vectors as relating to smart contract (solana programs in this context) and how to mitigate those vulnerabilities.. Each program includes vulnerable and secure implementations with tests that prove exploits fail after remediation. In line with achieving my weird dream of 100% Rust only on this repository, I decided to write all tests as well as workflows in Rust. To make the best of the repo, think like an elite hacker, break things, and fix them, and build better programs. Meanwhile, a checklist for you here. Ciao!
+This repository offers a collection of Solana programs that attempts to demonstrate common attack vectors as developers expererience while building and how to mitigate those vulnerabilities.. Each program includes vulnerable and secure implementations with tests that prove exploits fail after remediation. 
+
+In line with achieving my weird dream of 100% Rust only on my Sol-native repositories, I decided to write all code samples, tests, as well as workflows in Rust (maybe I should write this Readme in Rust as well). To make the best of the repo, think like an elite hacker, break things, and fix them, and build better programs. 
+
+In addition to this beautiful repo, there is a reference article that illustrates in precise detail how it plays out and how to protect yourself, and your program from actors with malicious intent. Read the article [here](https://medium.com/@emnma007/building-secure-solana-programs-a-technical-deep-dive-into-smart-contract-vulnerabilities-60977f8f2e5f). Meanwhile, you can also use this checklist as an accountability partner while building. Ciao!
 ![Checklist](https://github.com/user-attachments/assets/ed332588-c5eb-4b9e-9362-a4eede6fd130)
 
 
@@ -10,9 +14,10 @@ This repository offers a collection of Solana programs that attempts to demonstr
 
 This repository provides hands-on examples of several critical vulnerabilities that can be found in Solana programs. Each vulnerability is isolated in its own program with:
 
-- **Vulnerable implementation** — An iteration of the code that can be exploited. Deliberately written as such for educational purposes.
-- **Secure implementation** — The same code with proper defenses 
+- **Vulnerable code samples** — An iteration of the code that can be exploited. Deliberately written as such for educational purposes.
+- **Secure implementation of same code samples** — The same code with proper defenses 
 - **LiteSVM tests** — Demonstrates the exploit and verifies the fix
+- **Trident Fuzzing** — This only applies to the AMM repo and shows how to fuzz programs before deploying them.
 
 The programs use both Anchor and Pinocchio frameworks to show patterns across different development approaches.
 
@@ -44,15 +49,16 @@ cargo test -p security-tests
 cd trident-tests/fuzz_targets && cargo test
 ```
 
-### Learning Path
+### How to use the repo
 
 1. Start with [owner-check](programs/owner-check/) which is the simplest vulnerability to understand
 2. Read the vulnerable code and its comments
 3. Read the secure code to see the fix
 4. Run tests to observe the exploit fail against the secure version
-5. Progress to more complex vulnerabilities
+5. Progress to more complex vulnerabilities. Rinse and repeat.
+6. Build your own programs, and implement same secure solutions.
 
-## Vulnerability Coverage
+## Vulnerability Highlighted in this Repo
 
 | Vulnerability | Program | Severity | Framework | Mitigation |
 |--------------|---------|----------|-----------|------------|
@@ -214,11 +220,13 @@ Each program contains:
 - `src/secure.rs` — Fixed implementation
 
 ## Additional Resources
-
+While this repo does not claim to be exhaustive in terms of the vulnerabilities that your code might have and the techniques to mitigate them, these resources can serve as external references for those looking to harden their code
 - [Anchor Docs detailing Best Practices](https://www.anchor-lang.com/docs/security) — Deploying programs safely using the Anchor framework
-- [Security Checklist](SECURITY_CHECKLIST.md) — Pre-deployment checklist
+- [Solana Hacks, Bugs, and Exploits: A Complete History](https://www.helius.dev/blog/solana-hacks)
+- [The Cantina Security Blog](https://cantina.xyz/) — Cantina Security Blog
 - [The Rust Advisory Database](https://rustsec.org) — The Rust vulnerability database
 - [Trident Fuzzing](trident-tests/README.md) — Fuzz testing for edge cases
+- [Building Secure Solana Programs: A Technical Deep Dive into Smart Contract Vulnerabilities](https://medium.com/@emnma007/building-secure-solana-programs-a-technical-deep-dive-into-smart-contract-vulnerabilities-60977f8f2e5f)
 - [Contributing](CONTRIBUTING.md) — How to contribute
 
 ## Dependencies
